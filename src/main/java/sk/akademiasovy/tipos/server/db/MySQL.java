@@ -8,9 +8,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-/**
- * Created by host on 20.2.2018.
- */
+
 public class MySQL {
     private Connection conn;
     private String driver = "com.mysql.jdbc.Driver";
