@@ -29,6 +29,7 @@ public class TiposApplication extends Application<TiposConfiguration> {
     public void run(final TiposConfiguration configuration,
                     final Environment environment) {
         environment.jersey().register(new Login());
+        environment.jersey().register(new Bets());
         final FilterRegistration.Dynamic cors =
                 environment.servlets().addFilter("CORS", CrossOriginFilter.class);
 // Configure CORS parameters

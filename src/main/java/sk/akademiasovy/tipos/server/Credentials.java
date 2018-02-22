@@ -11,11 +11,13 @@ public class Credentials {
     public String password;
 
 
-    public String getUsername() {
+    public String getUsername()
+    {
         return username;
     }
 
-    public String getPassword() {
+    public String getPassword()
+    {
         return password;
     }
 }

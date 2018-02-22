@@ -1,5 +1,6 @@
 package sk.akademiasovy.tipos.server.db;
 
+import sk.akademiasovy.tipos.server.Registration;
 import sk.akademiasovy.tipos.server.User;
 
 import javax.xml.crypto.dsig.spec.ExcC14NParameterSpec;
@@ -58,4 +59,101 @@ public class MySQL {
             e.printStackTrace();
         }
     }
-}
+
+    public boolean checkIfEmailOrLoginExist(String login, String email) {
+        try {
+            Class.forName(driver).newInstance();
+            conn = DriverManager.getConnection(url, this.username, this.password);
+
+            String query = "SELECT count(*) as num FROM users WHERE login like ? OR email like ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1,login);
+            ps.setString(2,email);
+            ResultSet rs=ps.executeQuery();
+            System.out.println(ps);
+
+            rs.next();
+            if(rs.getInt("num")==0)
+                return false;  // email ani login neexistuju
+            else
+                return true;  // login alebo email uz existuje v databaze
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return true;
+    }
+
+    public void insertNewUserToDatabase(Registration registration)
+    {
+
+        try {
+            Class.forName(driver).newInstance();
+            conn = DriverManager.getConnection(url, this.username, this.password);
+
+            String query = "INSERT INTO users (firstname,lastname,email,login,password) VALUES (?,?,?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1,registration.firstname);
+            ps.setString(2,registration.lastname);
+            ps.setString(3,registration.email);
+            ps.setString(4,registration.login);
+            ps.setString(5,registration.password);
+            ps.executeUpdate();
+
+
+            }catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+    public boolean checkLogin(String login)
+    {
+
+        try {
+            Class.forName(driver).newInstance();
+            conn = DriverManager.getConnection(url, this.username, this.password);
+
+            String query = "SELECT * FROM users Where login like ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1,login);
+            ResultSet rs=ps.executeQuery();
+
+            if(rs.next())
+                return true;
+            else
+                return false;
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean checkToken(String token) {
+        try {
+            Class.forName(driver).newInstance();
+            conn = DriverManager.getConnection(url, this.username, this.password);
+
+            String query = "SELECT * FROM tokens Where token like ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1,token);
+            ResultSet rs=ps.executeQuery();
+
+            if(rs.next())
+                return true;
+            else
+                return false;
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+    }
+

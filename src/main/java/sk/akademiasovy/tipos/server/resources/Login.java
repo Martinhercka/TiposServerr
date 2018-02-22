@@ -2,8 +2,11 @@ package sk.akademiasovy.tipos.server.resources;
 
 
 
+import javax.servlet.Registration;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import sk.akademiasovy.tipos.server.Credentials;
 import sk.akademiasovy.tipos.server.User;
 import sk.akademiasovy.tipos.server.db.MySQL;
@@ -42,4 +45,27 @@ public class Login {
         mySQL.logout( token);
         return "{}";
     }
+
+
+    @POST
+    @Path("/registration")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String  createNewUser (sk.akademiasovy.tipos.server.Registration registration)
+    {
+        MySQL mySQL = new MySQL();
+        boolean exist = mySQL.checkIfEmailOrLoginExist(registration.login.trim(),registration.email.trim());
+        if(exist)
+        {
+            System.out.println("Duplicate");
+        }
+        else
+        {
+            System.out.println("Do Registration");
+            mySQL.insertNewUserToDatabase(registration);
+        }
+
+        return "{}";
+
+    }
+
 }
