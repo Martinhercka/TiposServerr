@@ -33,7 +33,7 @@ public class Draws
           result+="\"bet3 \":"+drawnum.bet3+", ";
           result+="\"bet4 \":"+drawnum.bet4+", ";
           result+="\"bet5 \":"+drawnum.bet5+", ";
-          result+= "\"date \":[\""+drawnum.date +"\"]} ";
+          result+= "\"date \":\""+drawnum.date +"\"} ";
           return Response.ok(result).build();
 
 
