@@ -23,6 +23,7 @@ public class Bets
         if(ret1&&ret2)
         {
             System.out.println("Token and login are okay");
+            mysql.insertBets(ticket);
         }
         else
         {
