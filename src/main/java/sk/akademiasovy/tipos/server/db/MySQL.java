@@ -1,5 +1,6 @@
 package sk.akademiasovy.tipos.server.db;
 
+import com.google.common.base.Ticker;
 import sk.akademiasovy.tipos.server.DrawNumbers;
 import sk.akademiasovy.tipos.server.Registration;
 import sk.akademiasovy.tipos.server.Ticket;
@@ -7,6 +8,8 @@ import sk.akademiasovy.tipos.server.User;
 
 import javax.xml.crypto.dsig.spec.ExcC14NParameterSpec;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MySQL {
@@ -215,6 +218,46 @@ public class MySQL {
 
         }
         return null;
+
+    }
+
+    public void getActualTickets(String username)
+    {
+
+        try {
+            Class.forName(driver).newInstance();
+            conn = DriverManager.getConnection(url, this.username, this.password);
+
+            String query = "SELECT * from bets INNER JOIN users ON users.id=bets.idu INNER JOIN bet_details ON bets.id=bet_details.idb WHERE login like ? AND draw_id IS NULL ";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1,username);
+            ResultSet rs = ps.executeQuery();
+            List <Ticket> list = new ArrayList<>();
+            while(rs.next())
+            {
+
+                int bet1=rs.getInt("bet1");
+                int bet2=rs.getInt("bet2");
+                int bet3=rs.getInt("bet3");
+                int bet4=rs.getInt("bet4");
+                int bet5=rs.getInt("bet5");
+                Ticket ticket = new Ticket(bet1,bet2,bet3,bet4,bet5);
+                list.add(ticket);
+
+
+            }
+
+
+
+
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
 
     }
 }

@@ -7,6 +7,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/bets")
 public class Bets
@@ -33,5 +35,30 @@ public class Bets
         return "{}";
 
     }
+
+    @POST
+    @Path("/actual")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String newTicket(Credentials credentials)
+    {
+        MySQL mysql = new MySQL();
+        boolean ret1 = mysql.checkLogin(credentials.username);
+        boolean ret2 = mysql.checkToken(credentials.token);
+        if(ret1&&ret2)
+        {
+            List <Ticket> tickets;
+            mysql.getActualTickets(credentials.username);
+            Response.ok().build();
+
+        }
+        else
+        {
+            return ("D");
+
+        }
+
+        return null;
+    }
+
 
 }
