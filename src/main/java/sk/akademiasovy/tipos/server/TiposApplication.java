@@ -29,6 +29,12 @@ public class TiposApplication extends Application<TiposConfiguration> {
     @Override
     public void run(final TiposConfiguration configuration,
                     final Environment environment) {
+
+        String user=configuration.getUser();
+        String password = configuration.getPassword();
+        System.out.println(user+" "+password);
+
+
         environment.jersey().register(new Login());
         environment.jersey().register(new Bets());
         environment.jersey().register(new Draws());

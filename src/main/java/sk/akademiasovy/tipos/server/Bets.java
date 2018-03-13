@@ -47,15 +47,11 @@ public class Bets
         if(ret1&&ret2)
         {
             List <Ticket> tickets;
-            mysql.getActualTickets(credentials.username);
+            tickets=mysql.getActualTickets(credentials.username);
             Response.ok().build();
 
         }
-        else
-        {
-            return ("D");
 
-        }
 
         return null;
     }

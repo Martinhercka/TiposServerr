@@ -1,12 +1,10 @@
 package sk.akademiasovy.tipos.server.db;
 
-import com.google.common.base.Ticker;
 import sk.akademiasovy.tipos.server.DrawNumbers;
 import sk.akademiasovy.tipos.server.Registration;
 import sk.akademiasovy.tipos.server.Ticket;
 import sk.akademiasovy.tipos.server.User;
 
-import javax.xml.crypto.dsig.spec.ExcC14NParameterSpec;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -221,7 +219,7 @@ public class MySQL {
 
     }
 
-    public void getActualTickets(String username)
+    public List<Ticket> getActualTickets(String username)
     {
 
         try {
@@ -243,6 +241,7 @@ public class MySQL {
                 int bet5=rs.getInt("bet5");
                 Ticket ticket = new Ticket(bet1,bet2,bet3,bet4,bet5);
                 list.add(ticket);
+                return list;
 
 
             }
@@ -258,6 +257,6 @@ public class MySQL {
         }
 
 
-
+        return null;
     }
 }
