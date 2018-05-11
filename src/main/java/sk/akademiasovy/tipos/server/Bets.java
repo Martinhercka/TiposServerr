@@ -42,12 +42,12 @@ public class Bets
     public String newTicket(Credentials credentials)
     {
         MySQL mysql = new MySQL();
-        boolean ret1 = mysql.checkLogin(credentials.username);
+        boolean ret1 = mysql.checkLogin(credentials.login);
         boolean ret2 = mysql.checkToken(credentials.token);
         if(ret1&&ret2)
         {
             List <Ticket> tickets;
-            tickets=mysql.getActualTickets(credentials.username);
+            tickets=mysql.getActualTickets(credentials.login);
             Response.ok().build();
 
         }

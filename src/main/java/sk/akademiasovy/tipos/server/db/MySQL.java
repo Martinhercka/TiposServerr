@@ -17,14 +17,14 @@ public class MySQL {
     private String username = "root";
     private String password = "";
 
-    public User getUser(String username, String password) {
+    public User getUser(String login, String password) {
         try {
             Class.forName(driver).newInstance();
             conn = DriverManager.getConnection(url, this.username, this.password);
 
             String query = "SELECT * from users where login like ? and password like ?";
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, username);
+            ps.setString(1, login);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {

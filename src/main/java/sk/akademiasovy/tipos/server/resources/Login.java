@@ -21,7 +21,7 @@ public class Login {
     public String checkCredentials(Credentials credential){
         System.out.println(credential.getUsername());
         MySQL mySQL = new MySQL();
-        User user=mySQL.getUser(credential.username, credential.password);
+        User user=mySQL.getUser(credential.login, credential.password);
         if(user==null){
             return "{}";
         }
